@@ -5,7 +5,7 @@ import cv2
 import sys
 
 # load the games image
-image = cv2.imread("/home/jas/Downloads/games.jpg")
+image = cv2.imread("games.jpg")
  
 # find the red color game in the image
 upper = np.array([65, 65, 255])
@@ -15,7 +15,6 @@ mask = cv2.inRange(image, lower, upper)
 print upper
 print lower
 print mask
-#sys.exit()
  
 # find contours in the masked image and keep the largest one
 (_, cnts, _) = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
