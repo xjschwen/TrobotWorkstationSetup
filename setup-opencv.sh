@@ -4,11 +4,14 @@
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
 
+sudo add-apt-repository ppa:gstreamer-developers/ppa
+sudo apt-get -y update 
+sudo apt-get -y install gstreamer1.0
 
 
 #Step 1:  Make sure that we are upto date with the OS
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y update
+sudo apt-get -y upgrade
 
 #Step 2: First round of developer tools
 sudo apt-get -y install build-essential cmake git pkg-config
@@ -97,6 +100,7 @@ fi
 
 cd $OPENCV_ROOT
 export JAVA_HOME=/opt/java/jdk1.8
+export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
 
 mkdir build
 cd build
