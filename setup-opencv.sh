@@ -4,7 +4,7 @@
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
 #add a g streamer project to support video streaming
-sudo add-apt-repository ppa:gstreamer-developers/ppa
+sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 sudo apt-get -y update 
 sudo apt-get -y install gstreamer1.0
 
@@ -47,9 +47,6 @@ echo "export WORKON_HOME=$HOME/.virtualenvs" >> /tmp/$USER.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> /tmp/$USER.bashrc
 mv -f /tmp/$USER.bashrc ~/.bashrc
 
-
-
-
 # execute the new bash rc file
 source ~/.bashrc
 
@@ -69,7 +66,7 @@ sudo apt-get clean
 #Step 10 get opencv  and opencv_contrib from github
 
 OPENCV_ROOT=~/opencv
-OPENCV_VER="3.1.0"
+OPENCV_VER="3.0.1"
 if [ -d "$OPENCV_ROOT" ] ; then
   pushd "$OPENCV_ROOT"
   git fetch --all
@@ -108,23 +105,29 @@ cd $OPENCV_ROOT
 export JAVA_HOME=/opt/java/jdk1.8
 export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
 
-mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-	-D BUILD_SHARED_LIBS=OFF \
-	-D CMAKE_INSTALL_PREFIX=/opt/opencv \
-	-D INSTALL_C_EXAMPLES=OFF \
-	-D INSTALL_PYTHON_EXAMPLES=ON \
-	-D INSTALL_JAVA_EXAMPLES=ON \	
-	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-	-D BUILD_EXAMPLES=ON ..
+mkdir -p $OPENCV_ROOT/build
+cd $OPENCV_ROOT/build
 
+#warning... spaces/tabs afte the line continue will 
+#cause the command to fail with -D unknown command style of failures
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/opt/opencv \
+-D INSTALL_C_EXAMPLES=OFF \
+-D INSTALL_PYTHON_EXAMPLES=ON \
+-D INSTALL_JAVA_EXAMPLES=ON \
+-D BUILD_SHARED_LIBS=OFF \
+-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+-D BUILD_EXAMPLES=ON ..
+	
+#
+#  
 #compile using 2 cores.
-sudo make -j2
+sudo time make -j2
 
 # install the open cv
 sudo make install
 sudo ldconfig
 
-rm get-pip.py*
+rm -f get-pip.py*
 
