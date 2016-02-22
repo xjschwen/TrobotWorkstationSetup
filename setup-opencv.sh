@@ -8,7 +8,6 @@ sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 sudo apt-get -y update 
 sudo apt-get -y install gstreamer1.0
 
-
 #Step 1:  Make sure that we are upto date with the OS
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -18,7 +17,13 @@ sudo apt-get -y install build-essential cmake git pkg-config
 
 
 #Step 3: Image file format utilities
-sudo apt-get -y install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
+
+# libtiff4-dev not available on RPI
+if [ "$USER" != "pi"] ; then
+  sudo apt-get -y install libtiff4-dev
+fi
+
 
 #Step 4: Image display utilities
 sudo apt-get -y install libgtk2.0-dev
