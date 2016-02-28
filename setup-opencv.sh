@@ -55,6 +55,10 @@ mv -f /tmp/$USER.bashrc ~/.bashrc
 # execute the new bash rc file
 source ~/.bashrc
 
+sudo pip install --upgrade numpy
+sudo pip install --upgrade imutils
+
+
 #Make the cv virtual environment
 mkvirtualenv cv
 workon cv
