@@ -33,3 +33,16 @@ sudo service lighttpd reload
 #Make the pi public_html and give it to pi user
 sudo mkdir -p "/home/pi/public_html"
 sudo chown pi:pi "/home/pi/public_html"
+
+cp "motion-config/picams.html" "home/pi/public_html/picams.html"
+
+if [ -d "/etc/motion" ] ; then
+  sudo cp "motion-config/motion.conf" "/etc/motion/"
+  sudo cp "motion-config/thread1.conf" "/etc/motion/"
+  sudo cp "motion-config/thread2.conf" "/etc/motion/"
+  sudo chown root:motion "/etc/motion/motion.conf"
+fi
+
+
+
+
