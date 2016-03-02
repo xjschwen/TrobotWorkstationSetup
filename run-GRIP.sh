@@ -15,6 +15,6 @@ printf "GRIP_HOME=%s\n" $GRIP_HOME
 export java_library_path=$GRIP_HOME/app
 java -version
 
-printf "/n/n"
+printf "\n\n"
 
 $JAVA_HOME/bin/java -jar -Djava.library.path=${java_library_path} $GRIP_HOME/app/ui-1.1.1.jar 2>/tmp/GRIP.log
