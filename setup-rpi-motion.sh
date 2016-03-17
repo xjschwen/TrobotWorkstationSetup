@@ -20,6 +20,11 @@ sudo apt-get -y install vim
 sudo apt-get -y install htop
 sudo apt-get -y install nmap
 
+#install the mdns utils
+sudo apt-get -y install avahi-daemon avahi-dnsconfd avahi-discover avahi-utils libnss-mdns
+
+#install dns look utils
+sudo apt-get -y install dnsutils
 
 #configure lighttpd options
 sudo lighttpd-enable-mod userdir
