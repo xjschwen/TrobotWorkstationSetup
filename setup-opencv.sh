@@ -13,7 +13,8 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 
 #Step 2: First round of developer tools
-sudo apt-get -y install build-essential cmake git pkg-config
+sudo apt-get -y install build-essential cmake git pkg-config 
+sudo apt-get -y install vim
 
 
 #Step 3: Image file format utilities
