@@ -15,7 +15,7 @@ sudo apt-get -y upgrade
 #Step 2: First round of developer tools
 sudo apt-get -y install build-essential cmake git pkg-config 
 sudo apt-get -y install vim
-
+sudo apt-get -y install htop
 
 #Step 3: Image file format utilities
 sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
