@@ -65,7 +65,7 @@ mkvirtualenv cv
 workon cv
 
 #Step 9  install python 2.7 and numpy
-sudo apt-get install python2.7-dev
+sudo apt-get -y install python2.7-dev
 
 pip install --upgrade numpy
 pip install --upgrade imutils
