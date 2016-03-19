@@ -3,81 +3,83 @@
 
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
-sudo apt-get -y update 
+if [ -z $1 ] ; then
+  sudo apt-get -y update 
 
-if [ $USER = "pi" ] ; then
-  sudo rpi-update
-else
-  #if not pi then add a repository
-  #add a g streamer project to support video streaming
-  sudo add-apt-repository -y ppa:gstreamer-developers/ppa
+  if [ $USER = "pi" ] ; then
+    sudo rpi-update
+  else
+    #if not pi then add a repository
+    #add a g streamer project to support video streaming
+    sudo add-apt-repository -y ppa:gstreamer-developers/ppa
+  fi
+
+  sudo apt-get -y install gstreamer1.0
+
+  #Step 1:  Make sure that we are upto date with the OS
+  sudo apt-get -y update
+  sudo apt-get -y upgrade
+
+  #Step 2: First round of developer tools
+  sudo apt-get -y install build-essential cmake git pkg-config 
+  sudo apt-get -y install vim
+  sudo apt-get -y install htop
+
+  #Step 3: Image file format utilities
+  sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
+
+  # libtiff4-dev not available on RPI
+  if [ "$USER" != "pi"] ; then
+    sudo apt-get -y install libtiff4-dev
+  fi
+
+
+  #Step 4: Image display utilities
+  sudo apt-get -y install libgtk2.0-dev
+
+  # Step 5: Image stream utilites  (Video stream readers)
+  sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+
+
+  #Step 6: Optomize it for various processors 
+  sudo apt-get -y install libatlas-base-dev gfortran
+
+  # clean some cruft from the package base
+  sudo apt-get -y autoremove
+
+  #Step 7: Install PIP
+  wget https://bootstrap.pypa.io/get-pip.py  -P /tmp 
+  sudo python /tmp/get-pip.py
+
+
+  #Step 8 use pip to install some useful packages
+  sudo pip install virtualenv virtualenvwrapper
+  sudo rm -rf ~/.cache/pip
+
+  # make a copy of the .bashrc file
+  cp -f ~/.bashrc ~/.bashrc.bak
+  cat ~/.bashrc | grep -v 'export WORKON_HOME=' | grep -v 'virtualenvwrapper.sh' > /tmp/$USER.bashrc
+  echo "export WORKON_HOME=$HOME/.virtualenvs" >> /tmp/$USER.bashrc
+  echo "source /usr/local/bin/virtualenvwrapper.sh" >> /tmp/$USER.bashrc
+  mv -f /tmp/$USER.bashrc ~/.bashrc
+
+  # execute the new bash rc file
+  source ~/.bashrc
+
+  #Make the cv virtual environment
+  mkvirtualenv cv
+  workon cv
+
+  #Step 9  install python 2.7 and numpy
+  sudo apt-get -y install python2.7-dev
+
+  pip install --upgrade numpy
+  pip install --upgrade imutils
+
+  # clear the apt-get cache to save some file system space
+  sudo apt-get clean
+
 fi
-
-sudo apt-get -y install gstreamer1.0
-
-#Step 1:  Make sure that we are upto date with the OS
-sudo apt-get -y update
-sudo apt-get -y upgrade
-
-#Step 2: First round of developer tools
-sudo apt-get -y install build-essential cmake git pkg-config 
-sudo apt-get -y install vim
-sudo apt-get -y install htop
-
-#Step 3: Image file format utilities
-sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
-
-# libtiff4-dev not available on RPI
-if [ "$USER" != "pi"] ; then
-  sudo apt-get -y install libtiff4-dev
-fi
-
-
-#Step 4: Image display utilities
-sudo apt-get -y install libgtk2.0-dev
-
-#Step 5: Image stream utilites  (Video stream readers)
-sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-
-
-#Step 6: Optomize it for various processors 
-sudo apt-get -y install libatlas-base-dev gfortran
-
-# clean some cruft from the package base
-sudo apt-get -y autoremove
-
-#Step 7: Install PIP
-wget https://bootstrap.pypa.io/get-pip.py  -P /tmp 
-sudo python /tmp/get-pip.py
-
-
-#Step 8 use pip to install some useful packages
-sudo pip install virtualenv virtualenvwrapper
-sudo rm -rf ~/.cache/pip
-
-# make a copy of the .bashrc file
-cp -f ~/.bashrc ~/.bashrc.bak
-cat ~/.bashrc | grep -v 'export WORKON_HOME=' | grep -v 'virtualenvwrapper.sh' > /tmp/$USER.bashrc
-echo "export WORKON_HOME=$HOME/.virtualenvs" >> /tmp/$USER.bashrc
-echo "source /usr/local/bin/virtualenvwrapper.sh" >> /tmp/$USER.bashrc
-mv -f /tmp/$USER.bashrc ~/.bashrc
-
-# execute the new bash rc file
-source ~/.bashrc
-
-#Make the cv virtual environment
-mkvirtualenv cv
-workon cv
-
-#Step 9  install python 2.7 and numpy
-sudo apt-get -y install python2.7-dev
-
-pip install --upgrade numpy
-pip install --upgrade imutils
-
-# clear the apt-get cache to save some file system space
-sudo apt-get clean
-
 #Step 10 get opencv  and opencv_contrib from github
 
 OPENCV_ROOT=~/opencv
@@ -147,6 +149,7 @@ make -j${cores}
 # install the open cv
 sudo make install
 sudo ldconfig
+
 
 rm -f get-pip.py*
 
