@@ -3,11 +3,14 @@
 
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
-#add a g streamer project to support video streaming
-sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 sudo apt-get -y update 
+
 if [ $USER = "pi" ] ; then
   sudo rpi-update
+else
+  #if not pi then add a repository
+  #add a g streamer project to support video streaming
+  sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 fi
 
 sudo apt-get -y install gstreamer1.0
@@ -40,6 +43,8 @@ sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 #Step 6: Optomize it for various processors 
 sudo apt-get -y install libatlas-base-dev gfortran
 
+# clean some cruft from the package base
+sudo apt-get -y autoremove
 
 #Step 7: Install PIP
 wget https://bootstrap.pypa.io/get-pip.py  -P /tmp 
@@ -60,7 +65,6 @@ mv -f /tmp/$USER.bashrc ~/.bashrc
 # execute the new bash rc file
 source ~/.bashrc
 
-
 #Make the cv virtual environment
 mkvirtualenv cv
 workon cv
@@ -68,8 +72,8 @@ workon cv
 #Step 9  install python 2.7 and numpy
 sudo apt-get -y install python2.7-dev
 
-sudo pip install --upgrade numpy
-sudo pip install --upgrade imutils
+pip install --upgrade numpy
+pip install --upgrade imutils
 
 # clear the apt-get cache to save some file system space
 sudo apt-get clean
@@ -77,7 +81,7 @@ sudo apt-get clean
 #Step 10 get opencv  and opencv_contrib from github
 
 OPENCV_ROOT=~/opencv
-OPENCV_VER="3.0.1"
+OPENCV_VER="3.1.0"
 if [ -d "$OPENCV_ROOT" ] ; then
   pushd "$OPENCV_ROOT"
   git fetch --all
@@ -132,15 +136,13 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D BUILD_EXAMPLES=ON ..
 	
 
-if [ $USER = 'pi' ] ; then
-  coreFlag=j4
-else
-  coreFlag=j2
-fi
+# multi thread the compile process for speed
+# use one thread per core on your server
+cores=$(grep -c ^processor /proc/cpuinfo)  
 #
 #  
-#compile using 2 cores.
-sudo time make -${coreFlag}
+#compile using multi cores.
+make -j${cores}
 
 # install the open cv
 sudo make install
