@@ -6,6 +6,10 @@
 #add a g streamer project to support video streaming
 sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 sudo apt-get -y update 
+if [ $USER = "pi" ] ; then
+  sudo rpi-update
+fi
+
 sudo apt-get -y install gstreamer1.0
 
 #Step 1:  Make sure that we are upto date with the OS
@@ -66,8 +70,8 @@ workon cv
 #Step 9  install python 2.7 and numpy
 sudo apt-get install python2.7-dev
 
-pip install --upgrade numpy
-pip install --upgrade imutils
+sudo pip install --upgrade numpy
+sudo pip install --upgrade imutils
 
 # clear the apt-get cache to save some file system space
 sudo apt-get clean
@@ -129,10 +133,16 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 -D BUILD_EXAMPLES=ON ..
 	
+
+if [ $USER = 'pi' ] ; then
+  coreFlag=j4
+else
+  coreFlag=j2
+fi
 #
 #  
 #compile using 2 cores.
-sudo time make -j2
+sudo time make -${coreFlag}
 
 # install the open cv
 sudo make install
