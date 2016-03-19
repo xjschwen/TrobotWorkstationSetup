@@ -17,8 +17,9 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 
 #Step 2: First round of developer tools
-sudo apt-get -y install build-essential cmake git pkg-config
-
+sudo apt-get -y install build-essential cmake git pkg-config 
+sudo apt-get -y install vim
+sudo apt-get -y install htop
 
 #Step 3: Image file format utilities
 sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
@@ -68,7 +69,7 @@ mkvirtualenv cv
 workon cv
 
 #Step 9  install python 2.7 and numpy
-sudo apt-get install python2.7-dev
+sudo apt-get -y install python2.7-dev
 
 sudo pip install --upgrade numpy
 sudo pip install --upgrade imutils
