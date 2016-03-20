@@ -5,7 +5,7 @@
 # this script was running so fast that DHCP was not complete with resolving
 # before ifconfig was run, therefore the MOTD was not being updated correctly
 # 
-sleept 10
+sleep 10
 
 ifconfig eth0:0 10.36.68.32 netmask 255.255.255.0 broadcast 10.36.68.255
 
