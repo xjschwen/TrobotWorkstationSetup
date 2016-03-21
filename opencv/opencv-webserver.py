@@ -4,11 +4,19 @@
 	A Simple mjpg stream http server
 '''
 import cv2
+
 import Image
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import StringIO
 import time
 capture=None
+
+# Could not locate these in python bindings
+# looked them up in the c code 
+CV_CAP_PROP_FRAME_WIDTH = 3
+CV_CAP_PROP_FRAME_HEIGHT = 4
+CV_CAP_PROP_SATURATION = 12
+
 
 class CamHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
@@ -45,13 +53,17 @@ class CamHandler(BaseHTTPRequestHandler):
 
 def main():
 	global capture
+	for d in dir(cv2):
+	  print d
+	  
 	capture = cv2.VideoCapture(0)
-	capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 320); 
-	capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 240);
-	capture.set(cv2.cv.CV_CAP_PROP_SATURATION,0.2);
+	capture.set(CV_CAP_PROP_FRAME_WIDTH, 320); 
+	capture.set(CV_CAP_PROP_FRAME_HEIGHT, 240);
+	capture.set(CV_CAP_PROP_SATURATION,0.5);
+	
 	global img
 	try:
-		server = HTTPServer(('',8080),CamHandler)
+		server = HTTPServer(('',8080), CamHandler)
 		print "server started"
 		server.serve_forever()
 	except KeyboardInterrupt:
@@ -60,3 +72,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
