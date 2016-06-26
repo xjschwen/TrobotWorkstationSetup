@@ -1,9 +1,6 @@
 #!/bin/bash
 
-
 #Used to up date the workstation and install needed packages for Robot Used
-
-sudo apt-get update
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -13,8 +10,10 @@ sudo apt-get -yf install git
 sudo apt-get -yf install htop
 sudo apt-get -yf install vim
 
+sudo apt-get -y install build-essential
+sudo apt-get -y install cmake
+sudo apt-get -y install git
+sudo apt-get -y install pkg-config
+
 #install dns look utils
 sudo apt-get -y install dnsutils
-
-
- 
