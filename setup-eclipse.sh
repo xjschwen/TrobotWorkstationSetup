@@ -24,10 +24,14 @@ else
 	echo "Eclipse Installer found, Not downloading it"
 fi
 
+
+cp eclipse.desktop ../Desktop/
+
 sudo mkdir -p "$installroot"
 pwd
 sudo tar -zxvf "$downloadDir/$eclipseInstaller"  -C "$installroot"
 popd 
+
 
 
 
