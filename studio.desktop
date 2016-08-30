@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Icon=/opt/android-studio/bin/studio.png
+Name=Eclipse
+GenericName=Eclipse
+Comment=Eclipse
+Categories=Programming;Development;
+Exec=/home/techclub/studio.sh
+StartupNotify=true
+Terminal=false
