@@ -83,7 +83,7 @@ fi
 #Step 10 get opencv  and opencv_contrib from github
 
 OPENCV_ROOT=~/opencv
-OPENCV_VER="3.1.0"
+OPENCV_VER="master"
 if [ -d "$OPENCV_ROOT" ] ; then
   pushd "$OPENCV_ROOT"
   git fetch --all
@@ -152,4 +152,18 @@ sudo ldconfig
 
 
 rm -f get-pip.py*
+
+
+
+#soft link the open cv so module into python dirs
+if [ -f /opt/opencv/lib/python2.7/dist-packages/cv2.so ] ; then
+  if [ -d /usr/lib/python2.7/dist-packages/ ] ; then
+    ln -sf /opt/opencv/lib/python2.7/dist-packages/cv2.so
+  fi
+fi
+
+
+
+
+
 

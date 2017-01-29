@@ -3,7 +3,7 @@
 # this is good for setup of linux virtural boxes
 # or other Linux
 
-# 
+#
 curdir=$(readlink -m $HOME)
 installroot="/opt/java"
 javaInstaller="jdk-8u111-linux-x64.tar.gz"
@@ -12,7 +12,7 @@ jdkName="jdk1.8.0_111"
 
 mkdir -p "$downloadDir"
 sudo mkdir -p "$installroot"
-#change to downloadDir 
+#change to downloadDir
 pushd "$downloadDir"
 
 
@@ -27,13 +27,12 @@ fi
 
 sudo mkdir -p "$installroot"
 pwd
-if [ -d ""$installroot/$jdkName"" ] ; then
+#if [ ! -d ""$installroot/$jdkName"" ] ; then
 	pushd $installroot
 	sudo tar -zxvf "$downloadDir/$javaInstaller"  -C "$installroot"
 	sudo chown root:root "$installroot/$jdkName"
-	sudo ln -fs $(readlink -f "$jdkName") "$jdk1.8"
-fi 
+  sudo rm -Rf $installroot/jdk1.8
+	sudo ln -fs $(readlink -f "$jdkName") "jdk1.8"
+#fi
 
-popd 
-
-
+popd
