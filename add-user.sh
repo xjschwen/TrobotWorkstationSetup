@@ -40,4 +40,6 @@ fi
 mv -f "/tmp/${varsFile}" "/home/${user}/${varsFile}"
 
 mkdir -p /home/${user}/workspace
+cd /home/${user}/workspacegit clone https://github.com/xjschwen/TrobotWorkstationSetup.git
+ln -s /home/{$user}/workspace/TrobotWorkstationSetup/eclipse.sh /home/{$user}/eclipse.sh
 chown -R ${user}:${user} /home/${user}/

@@ -4,7 +4,7 @@
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
 if [ -z $1 ] ; then
-  sudo apt-get -y update 
+  sudo apt-get -y update
 
   if [ $USER = "pi" ] ; then
     sudo rpi-update
@@ -21,7 +21,7 @@ if [ -z $1 ] ; then
   sudo apt-get -y upgrade
 
   #Step 2: First round of developer tools
-  sudo apt-get -y install build-essential cmake git pkg-config 
+  sudo apt-get -y install build-essential cmake git pkg-config
   sudo apt-get -y install vim
   sudo apt-get -y install htop
 
@@ -29,7 +29,7 @@ if [ -z $1 ] ; then
   sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
 
   # libtiff4-dev not available on RPI
-  if [ "$USER" != "pi"] ; then
+  if [ "$USER" != "pi" ] ; then
     sudo apt-get -y install libtiff4-dev
   fi
 
@@ -41,14 +41,14 @@ if [ -z $1 ] ; then
   sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 
 
-  #Step 6: Optomize it for various processors 
+  #Step 6: Optomize it for various processors
   sudo apt-get -y install libatlas-base-dev gfortran
 
   # clean some cruft from the package base
   sudo apt-get -y autoremove
 
   #Step 7: Install PIP
-  wget https://bootstrap.pypa.io/get-pip.py  -P /tmp 
+  wget https://bootstrap.pypa.io/get-pip.py  -P /tmp
   sudo python /tmp/get-pip.py
 
 
@@ -99,14 +99,14 @@ else
   popd
 fi
 
-# checkout the open cv contribs 
+# checkout the open cv contribs
 OPENCV_CONTRIB_ROOT=~/opencv_contrib
 if [ -d "$OPENCV_CONTRIB_ROOT" ] ; then
   pushd $OPENCV_CONTRIB_ROOT
   git fetch --all
   git checkout -B "$OPENCV_VER"
   git pull origin "$OPENCV_VER"
-  popd 
+  popd
 else
   pushd ~
   git clone https://github.com/Itseez/opencv_contrib.git
@@ -125,7 +125,7 @@ export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
 mkdir -p $OPENCV_ROOT/build
 cd $OPENCV_ROOT/build
 
-#warning... spaces/tabs afte the line continue will 
+#warning... spaces/tabs afte the line continue will
 #cause the command to fail with -D unknown command style of failures
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -136,13 +136,13 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D BUILD_SHARED_LIBS=OFF \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 -D BUILD_EXAMPLES=ON ..
-	
+
 
 # multi thread the compile process for speed
 # use one thread per core on your server
-cores=$(grep -c ^processor /proc/cpuinfo)  
+cores=$(grep -c ^processor /proc/cpuinfo)
 #
-#  
+#
 #compile using multi cores.
 make -j${cores}
 
@@ -152,4 +152,3 @@ sudo ldconfig
 
 
 rm -f get-pip.py*
-

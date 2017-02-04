@@ -6,6 +6,8 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 
 sudo apt-get -yf install nmap
+sudo apt-get -yf install inetutils-traceroute
+sudo apt-get -yf install tcptrack
 sudo apt-get -yf install git
 sudo apt-get -yf install htop
 sudo apt-get -yf install vim
