@@ -5,7 +5,6 @@
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-sudo apt-get -yf install oracle-java8-jdk
 sudo apt-get -yf install nmap
 sudo apt-get -yf install inetutils-traceroute
 sudo apt-get -yf install tcptrack
