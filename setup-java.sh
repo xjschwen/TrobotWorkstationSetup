@@ -4,6 +4,13 @@
 # or other Linux
 
 #
+
+if [ "$(cat /proc/cpuinfo | grep "ARMv7")"  > "0" ] ; then
+  #Yes it is that easy for Raspberry PI
+	sudo apt-get install -yf oracle-java8-jdk
+	exit $?
+fi
+
 curdir=$(readlink -m $HOME)
 installroot="/opt/java"
 javaInstaller="jdk-8u111-linux-x64.tar.gz"
