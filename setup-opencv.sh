@@ -1,5 +1,10 @@
 #!/bin/bash
-#set -e
+err_report() {
+    echo "Error on line $1"
+}
+
+trap 'err_report $LINENO' ERR
+set -e
 
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
@@ -8,33 +13,29 @@ if [ -z $1 ] ; then
 
   if [ $USER = "pi" ] ; then
     sudo rpi-update
-  else
-    #if not pi then add a repository
-    #add a g streamer project to support video streaming
-    sudo add-apt-repository -y ppa:gstreamer-developers/ppa
   fi
 
-  sudo apt-get -y install gstreamer1.0
+  sudo apt-get -y install gstreamer1.0*
 
   #Step 1:  Make sure that we are upto date with the OS
   sudo apt-get -y update
   sudo apt-get -y upgrade
 
-  #Step 2: First round of developer tools
-  sudo apt-get -y install build-essential cmake git pkg-config
-  sudo apt-get -y install vim
-  sudo apt-get -y install htop
+
+  # Step 2 Install some general tools
+  ./install_general_packages.sh
 
   #Step 3: Image file format utilities
   sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
-
+  sudo apt-get -y update
+  sudo apt-get -y upgrade
   # libtiff4-dev not available on RPI
   if [ "$USER" != "pi" ] ; then
-    sudo apt-get -y install libtiff4-dev
+    sudo apt-get -y install libtiff5-dev
   fi
 
 
-  #Step 4: Image display utilities
+  # Step 4: Image display utilities
   sudo apt-get -y install libgtk2.0-dev
 
   # Step 5: Image stream utilites  (Video stream readers)
@@ -48,6 +49,7 @@ if [ -z $1 ] ; then
   sudo apt-get -y autoremove
 
   #Step 7: Install PIP
+  rm -Rf /tmp/get-pip.py
   wget https://bootstrap.pypa.io/get-pip.py  -P /tmp
   sudo python /tmp/get-pip.py
 
@@ -68,7 +70,7 @@ if [ -z $1 ] ; then
 
   #Make the cv virtual environment
   mkvirtualenv cv
-  workon cv
+  #workon cv
 
   #Step 9  install python 2.7 and numpy
   sudo apt-get -y install python2.7-dev

@@ -1,6 +1,11 @@
 #!/bin/bash
+err_report() {
+    echo "Error on line $1"
+}
 
-#Used to up date the workstation and install needed packages for Robot Used
+trap 'err_report $LINENO' ERR
+
+#Used to up date the workstation and install needed packages for Robot Use
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
