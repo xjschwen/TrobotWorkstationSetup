@@ -24,4 +24,5 @@ sudo apt-get -yf install pkg-config
 #install dns look utils
 sudo apt-get -y install dnsutils
 
-
+cp terminator.desktop ~/Desktop/terminator.desktop
+cp gedit.desktop ~/Desktop/gedit.desktop

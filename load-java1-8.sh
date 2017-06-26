@@ -26,3 +26,5 @@ sudo ln -fs $(readlink -f "$jdkName") "jdk1.8"
 
 popd
 
+sudo cp environment /etc/environment
+cp eclipse.desktop ~/Desktop

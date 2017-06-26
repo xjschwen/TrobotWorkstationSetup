@@ -32,4 +32,4 @@ pwd
 sudo tar -zxvf "$downloadDir/$eclipseInstaller"  -C "$installroot"
 popd
 
-sudo cp -f eclipse.desktop ~/Desktop/
+cp -f eclipse.desktop ~/Desktop/

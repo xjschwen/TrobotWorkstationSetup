@@ -1,0 +1,2 @@
+JAVA_HOME="/opt/java/jdk1.8"
+PATH="/opt/java/jdk1.8/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
