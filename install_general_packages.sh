@@ -17,9 +17,11 @@ sudo apt-get -yf install git
 sudo apt-get -yf install htop
 sudo apt-get -yf install vim
 
-sudo apt-get -y install build-essential
-sudo apt-get -y install cmake
-sudo apt-get -y install pkg-config
+sudo apt-get -yf install build-essential
+sudo apt-get -yf install cmake
+sudo apt-get -yf install pkg-config
 
 #install dns look utils
 sudo apt-get -y install dnsutils
+
+
