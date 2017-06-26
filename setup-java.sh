@@ -2,7 +2,13 @@
 # Download and untar the file in /opt
 # this is good for setup of linux virtural boxes
 # or other Linux
+#!/bin/bash
+err_report() {
+    echo "Error on line $1"
+    exit 1
+}
 
+trap 'err_report $LINENO' ERR
 #
 
 if [ "$(cat /proc/cpuinfo | grep "ARMv7")"  > "0" ] ; then
