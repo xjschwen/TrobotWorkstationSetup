@@ -25,7 +25,13 @@ sudo apt-get -yf install terminator
 #install dns look utils
 sudo apt-get -y install dnsutils
 
-cp terminator.desktop ~/Desktop/terminator.desktop
-cp gedit.desktop ~/Desktop/gedit.desktop
-cp gitg.desktop ~/Desktop/gitg.desktop
+
+if [ "$(cat /proc/cpuinfo | grep -c "ARMv")"  == "0" ] ; then
+  cp terminator.desktop ~/Desktop/terminator.desktop
+  cp gedit.desktop ~/Desktop/gedit.desktop
+  cp gitg.desktop ~/Desktop/gitg.desktop
+else
+  echo "We are on a ARM Processeor... There is no desktop!"
+fi
+
 
