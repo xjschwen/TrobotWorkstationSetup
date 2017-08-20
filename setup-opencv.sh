@@ -1,10 +1,11 @@
 #!/bin/bash
 err_report() {
     echo "Error on line $1"
+    exit 1
 }
 
 trap 'err_report $LINENO' ERR
-set -e
+#set -e
 
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
@@ -14,6 +15,10 @@ if [ -z $1 ] ; then
   if [ $USER = "pi" ] ; then
     sudo rpi-update
   fi
+
+  # TO get the JAVA binding you need java up and running
+  # and you need ant installed
+  sudo apt-get install ant
 
   sudo apt-get -y install gstreamer1.0*
 
@@ -38,6 +43,7 @@ if [ -z $1 ] ; then
   # Step 4: Image display utilities
   sudo apt-get -y install libgtk2.0-dev
 
+
   # Step 5: Image stream utilites  (Video stream readers)
   sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 
@@ -56,11 +62,16 @@ if [ -z $1 ] ; then
 
   #Step 8 use pip to install some useful packages
   sudo pip install virtualenv virtualenvwrapper
+  #resolve a warning about https://urllib3.readthedocs.io/en/latest/user-guide.html#ssl-py2
+  sudo pip install urllib3[secure]
   sudo rm -rf ~/.cache/pip
 
-  # make a copy of the .bashrc file
+  touch ~/.bashrc
   cp -f ~/.bashrc ~/.bashrc.bak
-  cat ~/.bashrc | grep -v 'export WORKON_HOME=' | grep -v 'virtualenvwrapper.sh' > /tmp/$USER.bashrc
+  
+  echo $USER
+  ls -l ~/.bashrc
+  cat ~/.bashrc | grep -v 'export WORKON_HOME=' | grep -v 'virtualenvwrapper.sh' | cat > /tmp/$USER.bashrc
   echo "export WORKON_HOME=$HOME/.virtualenvs" >> /tmp/$USER.bashrc
   echo "source /usr/local/bin/virtualenvwrapper.sh" >> /tmp/$USER.bashrc
   mv -f /tmp/$USER.bashrc ~/.bashrc
@@ -75,8 +86,8 @@ if [ -z $1 ] ; then
   #Step 9  install python 2.7 and numpy
   sudo apt-get -y install python2.7-dev
 
-  pip install --upgrade numpy
-  pip install --upgrade imutils
+  sudo pip install --upgrade numpy
+  sudo pip install --upgrade imutils
 
   # clear the apt-get cache to save some file system space
   sudo apt-get clean
@@ -127,17 +138,15 @@ export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
 mkdir -p $OPENCV_ROOT/build
 cd $OPENCV_ROOT/build
 
-#warning... spaces/tabs afte the line continue will
-#cause the command to fail with -D unknown command style of failures
-
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#warning... spaces/tabs after the line continue will
+#cause the command to fail with -D unknown command style of failurcmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/opt/opencv \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=ON \
 -D INSTALL_JAVA_EXAMPLES=ON \
 -D BUILD_SHARED_LIBS=OFF \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
--D BUILD_EXAMPLES=ON ..
+-D BUILD_EXAMPLES=OFF ..
 
 
 # multi thread the compile process for speed
@@ -162,3 +171,6 @@ if [ -f /opt/opencv/lib/python2.7/dist-packages/cv2.so ] ; then
     ln -sf /opt/opencv/lib/python2.7/dist-packages/cv2.so
   fi
 fi
+
+
+rm -rf ~/opencv/build/bin
