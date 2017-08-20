@@ -19,6 +19,7 @@ if [ -z $1 ] ; then
   # TO get the JAVA binding you need java up and running
   # and you need ant installed
   sudo apt-get install ant
+  sudo apt-get install cmake
 
   sudo apt-get -y install gstreamer1.0*
 
@@ -139,7 +140,9 @@ mkdir -p $OPENCV_ROOT/build
 cd $OPENCV_ROOT/build
 
 #warning... spaces/tabs after the line continue will
-#cause the command to fail with -D unknown command style of failurcmake -D CMAKE_BUILD_TYPE=RELEASE \
+#cause the command to fail with -D unknown command style of failure cmake D 
+
+cmake CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/opt/opencv \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=ON \
@@ -173,4 +176,4 @@ if [ -f /opt/opencv/lib/python2.7/dist-packages/cv2.so ] ; then
 fi
 
 
-rm -rf ~/opencv/build/bin
+#rm -rf ~/opencv/build/bin
