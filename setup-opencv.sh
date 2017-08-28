@@ -22,7 +22,15 @@ if [ -z $1 ] ; then
   sudo apt-get install cmake
 
   sudo apt-get -y install gstreamer1.0*
+  # additional packages that are needed when starting from
+  # the raspbian jessie minimal packages
+
   sudo apt-get -yf install libffi-dev
+  sudo apt-get -yf install python-dev
+  sudo apt-get -yf install python3-dev
+  sudo apt-get -yf install libssl-dev
+  sudo apt-get -yf install libxml2-dev
+  sudo apt-get -yf install zlib1g-dev
 
   #Step 1:  Make sure that we are upto date with the OS
   sudo apt-get -y update
