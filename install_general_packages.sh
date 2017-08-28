@@ -21,6 +21,10 @@ sudo apt-get -yf install build-essential
 sudo apt-get -yf install cmake
 sudo apt-get -yf install pkg-config
 sudo apt-get -yf install terminator
+sudo apt-get -yf install ant
+sudo apt-get -yf install groovy
+sudo apt-get -yf install gradle
+
 
 #install dns look utils
 sudo apt-get -y install dnsutils
