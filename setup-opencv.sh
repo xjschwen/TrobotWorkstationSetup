@@ -22,6 +22,7 @@ if [ -z $1 ] ; then
   sudo apt-get install cmake
 
   sudo apt-get -y install gstreamer1.0*
+  sudo apt-get -yf install libffi-dev
 
   #Step 1:  Make sure that we are upto date with the OS
   sudo apt-get -y update
