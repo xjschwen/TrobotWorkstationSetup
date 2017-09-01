@@ -10,16 +10,22 @@ trap 'err_report $LINENO' ERR
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
 if [ -z $1 ] ; then
-  sudo apt-get -y update
+  # sudo apt-get -y update
 
   if [ $USER = "pi" ] ; then
     sudo rpi-update
   fi
 
-  # TO get the JAVA binding you need java up and running
-  # and you need ant installed
-  sudo apt-get install ant
-  sudo apt-get install cmake
+
+  #Step 1:  Make sure that we are upto date with the OS
+  # these steps are in install general packages 
+  # sudo apt-get -y update
+  # sudo apt-get -y upgrade
+
+
+  # Step 2 Install some general tools
+  ./install_general_packages.sh
+
 
   sudo apt-get -y install gstreamer1.0*
   # additional packages that are needed when starting from
@@ -27,28 +33,21 @@ if [ -z $1 ] ; then
 
   sudo apt-get -yf install libffi-dev
   sudo apt-get -yf install python-dev
-  sudo apt-get -yf install python3-dev
+  # lets stick withjust python 2.7
+  # sudo apt-get -yf install python3-dev
   sudo apt-get -yf install libssl-dev
   sudo apt-get -yf install libxml2-dev
   sudo apt-get -yf install zlib1g-dev
 
-  #Step 1:  Make sure that we are upto date with the OS
-  sudo apt-get -y update
-  sudo apt-get -y upgrade
-
-
-  # Step 2 Install some general tools
-  ./install_general_packages.sh
-
   #Step 3: Image file format utilities
   sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
-  sudo apt-get -y update
-  sudo apt-get -y upgrade
+  # sudo apt-get -y update
+  # sudo apt-get -y upgrade
   # libtiff4-dev not available on RPI
+
   if [ "$USER" != "pi" ] ; then
     sudo apt-get -y install libtiff5-dev
   fi
-
 
   # Step 4: Image display utilities
   sudo apt-get -y install libgtk2.0-dev
@@ -56,7 +55,6 @@ if [ -z $1 ] ; then
 
   # Step 5: Image stream utilites  (Video stream readers)
   sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-
 
   #Step 6: Optomize it for various processors
   sudo apt-get -y install libatlas-base-dev gfortran
@@ -106,18 +104,17 @@ fi
 #Step 10 get opencv  and opencv_contrib from github
 
 OPENCV_ROOT=~/opencv
-OPENCV_VER="master"
+OPENCV_VER="3.3.0"
 if [ -d "$OPENCV_ROOT" ] ; then
   pushd "$OPENCV_ROOT"
   git fetch --all
-  git checkout -B "$OPENCV_VER"
-  git pull origin "$OPENCV_VER"
+  git checkout tags/${OPENCV_VER} -B "$OPENCV_VER"
   popd
 else
   pushd ~
   git clone https://github.com/Itseez/opencv.git
   pushd  "$OPENCV_ROOT"
-  git checkout -B "$OPENCV_VER"
+  git checkout tags/${OPENCV_VER} -B "$OPENCV_VER"
   popd
   popd
 fi
@@ -127,14 +124,13 @@ OPENCV_CONTRIB_ROOT=~/opencv_contrib
 if [ -d "$OPENCV_CONTRIB_ROOT" ] ; then
   pushd $OPENCV_CONTRIB_ROOT
   git fetch --all
-  git checkout -B "$OPENCV_VER"
-  git pull origin "$OPENCV_VER"
+  git checkout tags/${OPENCV_VER} -B "$OPENCV_VER"
   popd
 else
   pushd ~
   git clone https://github.com/Itseez/opencv_contrib.git
   pushd $OPENCV_CONTRIB_ROOT
-  git checkout -B "$OPENCV_VER"
+  git checkout tags/${OPENCV_VER} -B "$OPENCV_VER"
   popd
   popd
 fi
@@ -183,6 +179,8 @@ if [ -f /opt/opencv/lib/python2.7/dist-packages/cv2.so ] ; then
     ln -sf /opt/opencv/lib/python2.7/dist-packages/cv2.so
   fi
 fi
+
+# todo: softlink the open cv so modules to Java
 
 
 #rm -rf ~/opencv/build/bin
