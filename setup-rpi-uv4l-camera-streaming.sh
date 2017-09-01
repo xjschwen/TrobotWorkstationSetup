@@ -9,17 +9,20 @@
 # deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main
 #     http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main 
 
+tmp_sources='/tmp/sources.list'
+apt_sources='/etc/apt/sources.list'
+
 # remove any uv4l repos that already exist
-cat /etc/apt/sources.list | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > /tmp/sources.list
+cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources}
 
 # add the one that we want
-echo http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main  >> /tmp/sources.list
+echo http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main  >> ${tmp_sources}
 
 # remove the old sources.list
-sudo rm -Rf /etc/apt/sources.list
+sudo rm -Rf ${apt_sources}
 
 #put our modified sources.list back in place
-sudo mv /tmp/sources.list /etc/apt/sources.list
+sudo mv ${tmp_sources} ${apt_sources}
 
 $ sudo apt-get update
 
