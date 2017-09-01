@@ -7,8 +7,8 @@ trap 'err_report $LINENO' ERR
 
 #Used to up date the workstation and install needed packages for Robot Use
 
-sudo apt-get -y update
-sudo apt-get -y upgrade
+sudo apt-get -yf update
+sudo apt-get -yf upgrade
 
 sudo apt-get -yf install nmap
 sudo apt-get -yf install inetutils-traceroute
@@ -25,7 +25,6 @@ sudo apt-get -yf install ant
 sudo apt-get -yf install groovy
 sudo apt-get -yf install gradle
 sudo apt-get -yf install cmake
-
 
 
 #install dns look utils

@@ -10,22 +10,17 @@ trap 'err_report $LINENO' ERR
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
 if [ -z $1 ] ; then
-  # sudo apt-get -y update
-
   if [ $USER = "pi" ] ; then
     sudo rpi-update
   fi
-
 
   #Step 1:  Make sure that we are upto date with the OS
   # these steps are in install general packages 
   # sudo apt-get -y update
   # sudo apt-get -y upgrade
 
-
   # Step 2 Install some general tools
   ./install_general_packages.sh
-
 
   sudo apt-get -yf install gstreamer1.0*
   # additional packages that are needed when starting from
@@ -90,7 +85,7 @@ if [ -z $1 ] ; then
   #workon cv
 
   #Step 9  install python 2.7 and numpy
-  sudo apt-get -y install python2.7-dev
+  sudo apt-get -yf install python2.7-dev
 
   sudo pip install --upgrade numpy
   sudo pip install --upgrade imutils
@@ -136,7 +131,7 @@ fi
 #config the build scripts
 
 cd $OPENCV_ROOT
-export JAVA_HOME=/opt/java/jdk1.8
+export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
 export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
 
 mkdir -p $OPENCV_ROOT/build
