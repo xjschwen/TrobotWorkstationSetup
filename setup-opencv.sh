@@ -27,7 +27,7 @@ if [ -z $1 ] ; then
   ./install_general_packages.sh
 
 
-  sudo apt-get -y install gstreamer1.0*
+  sudo apt-get -yf install gstreamer1.0*
   # additional packages that are needed when starting from
   # the raspbian jessie minimal packages
 
@@ -40,27 +40,25 @@ if [ -z $1 ] ; then
   sudo apt-get -yf install zlib1g-dev
 
   #Step 3: Image file format utilities
-  sudo apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev
-  # sudo apt-get -y update
-  # sudo apt-get -y upgrade
-  # libtiff4-dev not available on RPI
-
-  if [ "$USER" != "pi" ] ; then
-    sudo apt-get -y install libtiff5-dev
-  fi
+  sudo apt-get -yf install libjpeg8-dev libjasper-dev libpng12-dev
+  # sudo apt-get -yf update
+  # sudo apt-get -yf upgrade
+   
+  sudo apt-get -yf install libtiff5-dev
+  
 
   # Step 4: Image display utilities
-  sudo apt-get -y install libgtk2.0-dev
+  sudo apt-get -yf install libgtk2.0-dev
 
 
   # Step 5: Image stream utilites  (Video stream readers)
-  sudo apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+  sudo apt-get -yf install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 
   #Step 6: Optomize it for various processors
-  sudo apt-get -y install libatlas-base-dev gfortran
+  sudo apt-get -yf install libatlas-base-dev gfortran
 
   # clean some cruft from the package base
-  sudo apt-get -y autoremove
+  sudo apt-get -yf autoremove
 
   #Step 7: Install PIP
   rm -Rf /tmp/get-pip.py
