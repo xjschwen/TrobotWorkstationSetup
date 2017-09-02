@@ -12,6 +12,9 @@
 tmp_sources='/tmp/sources.list'
 apt_sources='/etc/apt/sources.list'
 
+#add the key to key-ring
+wget http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc && sudo apt-key add ./lrkey.asc
+
 # remove any uv4l repos that already exist
 cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources}
 
