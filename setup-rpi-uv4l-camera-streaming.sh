@@ -28,19 +28,15 @@ sudo rm -Rf ${apt_sources}
 sudo mv ${tmp_sources} ${apt_sources}
 
 sudo apt-get update
-
 sudo apt-get upgrade
 
 sudo apt-get install uv4l uv4l-raspicam
-
 sudo apt-get install uv4l-raspicam-extras
-
 sudo apt-get install uv4l-server
-
 sudo apt-get install uv4l-uvc
-
 sudo apt-get install uv4l-xscreen
-
 sudo apt-get install uv4l-mjpegstream
 
+echo "Rebooting in 10 seconds"
+sleep 10
 sudo reboot
