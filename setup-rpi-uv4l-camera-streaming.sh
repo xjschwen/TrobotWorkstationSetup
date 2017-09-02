@@ -16,7 +16,7 @@ apt_sources='/etc/apt/sources.list'
 cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources}
 
 # add the one that we want
-echo http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main  >> ${tmp_sources}
+echo deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main  >> ${tmp_sources}
 
 # remove the old sources.list
 sudo rm -Rf ${apt_sources}
