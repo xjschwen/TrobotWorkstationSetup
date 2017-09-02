@@ -7,7 +7,7 @@
 # sudo nano /etc/apt/sources.list
 
 # deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main
-#     http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main 
+#     http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main
 
 tmp_sources='/tmp/sources.list'
 apt_sources='/etc/apt/sources.list'
@@ -24,20 +24,20 @@ sudo rm -Rf ${apt_sources}
 #put our modified sources.list back in place
 sudo mv ${tmp_sources} ${apt_sources}
 
-$ sudo apt-get update
+sudo apt-get update
 
-$ sudo apt-get upgrade
+sudo apt-get upgrade
 
-$ sudo apt-get install uv4l uv4l-raspicam
+sudo apt-get install uv4l uv4l-raspicam
 
-$ sudo apt-get install uv4l-raspicam-extras
+sudo apt-get install uv4l-raspicam-extras
 
-$ sudo apt-get install uv4l-server
+sudo apt-get install uv4l-server
 
-$ sudo apt-get install uv4l-uvc
+sudo apt-get install uv4l-uvc
 
-$ sudo apt-get install uv4l-xscreen
+sudo apt-get install uv4l-xscreen
 
-$ sudo apt-get install uv4l-mjpegstream
+sudo apt-get install uv4l-mjpegstream
 
-$ sudo reboot
+sudo reboot
