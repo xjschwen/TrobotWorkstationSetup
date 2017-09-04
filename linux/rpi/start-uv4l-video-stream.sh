@@ -5,7 +5,7 @@ sudo uv4l \
 	-nopreview \
 	--auto-video_nr \
 	--driver raspicam \
-	--encoding mj peg  \
+	--encoding mjpeg  \
 	--width 1280  \
 	--height 960 \
 	--framerate 25 \
