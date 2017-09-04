@@ -1,0 +1,9 @@
+[Unit]
+Description=uv4l daemon service
+[Service]
+ExecStart=/usr/local/bin/start-uv4l-video-stream.sh
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=uv4l
+[Install]
+WantedBy=multi-user.target

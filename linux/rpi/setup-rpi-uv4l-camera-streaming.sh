@@ -37,6 +37,11 @@ sudo apt-get install uv4l-uvc
 sudo apt-get install uv4l-xscreen
 sudo apt-get install uv4l-mjpegstream
 
+sudo cp start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
+sudo chmod 755 /usr/local/bin/start-uv4l-video-stream.sh
+
+sudo systemctl enable uv4l.service
+
 echo "Rebooting in 10 seconds"
 sleep 10
 sudo reboot
