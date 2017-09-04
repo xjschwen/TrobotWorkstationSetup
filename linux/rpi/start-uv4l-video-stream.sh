@@ -3,13 +3,13 @@
 
 sudo uv4l \
 	-nopreview \
-	--auto-video_nr \ 
-	--driver raspicam \ 
+	--auto-video_nr \
+	--driver raspicam \
 	--encoding mj peg  \
-	--width 640  \
-	--height 480 \
-	--framerate 20 \ 
-	--server-option '--port=9090' \ 
-	--server-option '--max-queued-connections=10' \ 
+	--width 1280  \
+	--height 960 \
+	--framerate 25 \
+	--server-option '--port=9090' \
+	--server-option '--max-queued-connections=10' \
 	--server-option '--max-streams=15' \
 	--server-option '--max-threads=20'
