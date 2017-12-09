@@ -1,0 +1,32 @@
+
+
+// Name the OS to get the correct scripts
+def OSName=""
+if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    print "sorry it's Windows"
+    OSName="windows"
+} else if (System.properties['os.name'].toLowerCase().contains('linux')) {
+    print "Yea... It is Linux"
+    OSName="linux"
+} else {
+  throw new GradleException("I do not know what to do with " + System.properties['os.name'])
+}
+
+// always use gradle 4.4
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
+
+
+task GeneralPackages(type:Exec) {
+  workingDir './linux/common'
+  //on linux
+  commandLine './install_general_packages.sh'
+  //store the output instead of printing to the console:
+  standardOutput = new ByteArrayOutputStream()
+  
+  //extension method stopTomcat.output() can be used to obtain the output:
+  ext.output = {
+    return standardOutput.toString()
+  }
+}
