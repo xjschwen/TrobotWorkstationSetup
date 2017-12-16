@@ -9,20 +9,21 @@ trap 'err_report $LINENO' ERR
 
 #http://www.pyimagesearch.com/2015/06/22/install-opencv-3-0-and-python-2-7-on-ubuntu/
 
+
 if [ -z $1 ] ; then
   if [ $USER = "pi" ] ; then
     sudo rpi-update
   fi
 
   #Step 1:  Make sure that we are upto date with the OS
-  # these steps are in install general packages 
+  # these steps are in install general packages
   # sudo apt-get -y update
   # sudo apt-get -y upgrade
 
   # Step 2 Install some general tools
   ./install_general_packages.sh
 
-  sudo apt-get -yf install gstreamer1.0*
+  #sudo apt-get -yf install gstreamer1.0*
   # additional packages that are needed when starting from
   # the raspbian jessie minimal packages
 
@@ -38,9 +39,9 @@ if [ -z $1 ] ; then
   sudo apt-get -yf install libjpeg8-dev libjasper-dev libpng12-dev
   # sudo apt-get -yf update
   # sudo apt-get -yf upgrade
-   
+
   sudo apt-get -yf install libtiff5-dev
-  
+
 
   # Step 4: Image display utilities
   sudo apt-get -yf install libgtk2.0-dev
@@ -51,6 +52,8 @@ if [ -z $1 ] ; then
 
   #Step 6: Optomize it for various processors
   sudo apt-get -yf install libatlas-base-dev gfortran
+
+  sudo apt-get -yf install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
 
   # clean some cruft from the package base
   sudo apt-get -yf autoremove
@@ -69,7 +72,7 @@ if [ -z $1 ] ; then
 
   touch ~/.bashrc
   cp -f ~/.bashrc ~/.bashrc.bak
-  
+
   echo $USER
   ls -l ~/.bashrc
   cat ~/.bashrc | grep -v 'export WORKON_HOME=' | grep -v 'virtualenvwrapper.sh' | cat > /tmp/$USER.bashrc
@@ -131,14 +134,16 @@ fi
 #config the build scripts
 
 cd $OPENCV_ROOT
-export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
-export PATH=$JAVA_HOME:$JAVA_HOME/bin:$PATH
+export ANT_HOME="/usr/share/ant"
+export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt"
+#export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
+export PATH=$JAVA_HOME:$JAVA_HOME/bin:$ANT_HOME:$ANT_HOME/bin:$PATH
 
 mkdir -p $OPENCV_ROOT/build
 cd $OPENCV_ROOT/build
 
 #warning... spaces/tabs after the line continue will
-#cause the command to fail with -D unknown command style of failure cmake D 
+#cause the command to fail with -D unknown command style of failure cmake D
 
 cmake CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/opt/opencv \
@@ -147,7 +152,7 @@ cmake CMAKE_BUILD_TYPE=RELEASE \
 -D INSTALL_JAVA_EXAMPLES=ON \
 -D BUILD_SHARED_LIBS=OFF \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
--D BUILD_EXAMPLES=OFF ..
+-D BUILD_EXAMPLES=ON ..
 
 
 # multi thread the compile process for speed
