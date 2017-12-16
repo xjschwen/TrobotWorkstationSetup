@@ -11,6 +11,8 @@ err_report() {
 trap 'err_report $LINENO' ERR
 #
 
+echo ... not using Oracle Java anymore... Using OpenJDK
+exit 1
 export installroot="/opt/java"
 export jdkLinkDir=${installroot}/jdk1.8
 
@@ -92,7 +94,7 @@ if [ "$(cat /proc/cpuinfo | grep "ARMv7")"  > "0" ] ; then
   #Yes it is that easy for Raspberry PI
 	sudo apt-get install -yf oracle-java8-jdk
   ln -s /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt ${jdkLinkDir}
-  update_alts
+  #update_alts
   exit $?
 fi
 
