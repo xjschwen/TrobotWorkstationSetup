@@ -7,28 +7,28 @@ err_report() {
 trap 'err_report $LINENO' ERR
 #Used to up date the workstation and install needed packages for Robot Use
 
- apt-get update
- apt-get upgrade
+ sudo apt-get update
+ sudo apt-get upgrade
 
- apt-get install --yes --fix-broken nmap
- apt-get install --yes --fix-broken gcc
- apt-get install --yes --fix-broken inetutils-traceroute
- apt-get install --yes --fix-broken tcptrack
- apt-get install --yes --fix-broken git gitk gitg
- apt-get install --yes --fix-broken htop
- apt-get install --yes --fix-broken vim
+ sudo apt-get install --yes --fix-broken nmap
+ sudo apt-get install --yes --fix-broken gcc
+ sudo apt-get install --yes --fix-broken inetutils-traceroute
+ sudo apt-get install --yes --fix-broken tcptrack
+ sudo apt-get install --yes --fix-broken git gitk gitg
+ sudo apt-get install --yes --fix-broken htop
+ sudo apt-get install --yes --fix-broken vim
 
- apt-get install --yes --fix-broken build-essential
- apt-get install --yes --fix-broken cmake
- apt-get install --yes --fix-broken pkg-config
- apt-get install --yes --fix-broken terminator
- apt-get install --yes --fix-broken ant
- apt-get install --yes --fix-broken groovy
- apt-get install --yes --fix-broken gradle
- apt-get install --yes --fix-broken cmake
+ sudo apt-get install --yes --fix-broken build-essential
+ sudo apt-get install --yes --fix-broken cmake
+ sudo apt-get install --yes --fix-broken pkg-config
+ sudo apt-get install --yes --fix-broken terminator
+ sudo apt-get install --yes --fix-broken ant
+ sudo apt-get install --yes --fix-broken groovy
+ sudo apt-get install --yes --fix-broken gradle
+ sudo apt-get install --yes --fix-broken cmake
 
 
 #install dns look utils
- apt-get install --yes --fix-broken dnsutils
+ sudo apt-get install --yes --fix-broken dnsutils
 
- apt-get --yes autoremove
+ sudo apt-get --yes autoremove

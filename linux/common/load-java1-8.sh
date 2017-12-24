@@ -15,7 +15,6 @@ else
 	javaInstaller="jdk-8u151-linux-x64.tar.gz"
 fi
 
-jdk_tar=~/$javaInstaller
 
 if [ -z ${jdk_tar} ] ; then
 	jdk_tar=$(find /media/ -name ${javaInstaller} | sort | tail -1)
@@ -25,7 +24,7 @@ if [ -z ${jdk_tar} ] ; then
 	echo "ERROR: Could not locate the correct installer"
 	echo "Looking for ${javaInstaller}"
 	exit 1
-fi 
+fi
 
 jdkName="jdk1.8.0_151"
 downloadDir="$curdir/Downloads"
@@ -56,8 +55,3 @@ cat ~/.bashrc |  sed 's#export\sPATH\s*=.*##g' > ~/.bashrc_new
 echo "export PATH=${JAVA_HOME}:${JAVA_HOME}/bin:${PATH}" >> ~/.bashrc_new
 rm  -f ~/bashrc
 mv ~/.bashrc_new ~/.bashrc
-
- 
-
-
-
