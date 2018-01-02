@@ -2,6 +2,9 @@
 
 #http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/
 
+#Updated for use with the pi3 and stretch
+#http://www.linux-projects.org/uv4l/installation/
+
 #Add the following line to the file /etc/apt/sources.list :
 
 # sudo nano /etc/apt/sources.list
@@ -13,13 +16,13 @@ tmp_sources='/tmp/sources.list'
 apt_sources='/etc/apt/sources.list'
 
 #add the key to key-ring
-wget http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc && sudo apt-key add ./lrkey.asc
 
+curl http://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
 # remove any uv4l repos that already exist
 cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources}
 
 # add the one that we want
-echo deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main  >> ${tmp_sources}
+echo deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main  >> ${tmp_sources}
 
 # remove the old sources.list
 sudo rm -Rf ${apt_sources}

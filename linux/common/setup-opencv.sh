@@ -23,10 +23,12 @@ if [ -z $1 ] ; then
   # Step 2 Install some general tools
   ./install_general_packages.sh
 
-  #sudo apt-get -yf install gstreamer1.0*
+  sudo apt-get -yf install Gstreamer1.0-omx*
+  sudo apt-get -yf install gstreamer1.0*
+
   # additional packages that are needed when starting from
   # the raspbian jessie minimal packages
-
+  sudo apt-get -yf install doxygen
   sudo apt-get -yf install libffi-dev
   sudo apt-get -yf install python-dev
   # lets stick withjust python 2.7
@@ -37,8 +39,8 @@ if [ -z $1 ] ; then
 
   #Step 3: Image file format utilities
   sudo apt-get -yf install libjpeg8-dev libjasper-dev libpng12-dev
-  # sudo apt-get -yf update
-  # sudo apt-get -yf upgrade
+  sudo apt-get -yf update
+  sudo apt-get -yf upgrade
 
   sudo apt-get -yf install libtiff5-dev
 
@@ -138,6 +140,14 @@ export ANT_HOME="/usr/share/ant"
 export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt"
 #export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
 export PATH=$JAVA_HOME:$JAVA_HOME/bin:$ANT_HOME:$ANT_HOME/bin:$PATH
+
+
+$ANT_HOME/bin/ant -version
+$JAVA_HOME/bin/java -version
+echo JEff says stop here.
+exit 1
+
+
 
 mkdir -p $OPENCV_ROOT/build
 cd $OPENCV_ROOT/build
