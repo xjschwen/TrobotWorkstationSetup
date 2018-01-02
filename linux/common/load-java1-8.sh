@@ -10,14 +10,22 @@ curdir=$(readlink -m $HOME)
 
 # if pi use pi name
 if [ "$(cat /proc/cpuinfo | grep "ARMv7")"  > "0" ] ; then
-	javaInstaller="jdk-8u151-linux-arm64-vfp-hflt.tar.gz"
+  #dispite the fact that Pi3 are 64 bit hw the os is 32 bit
+  #Pi2 is 32 bit and pi3 is 64 bit
+  javaInstaller="jdk-8u151-linux-arm32-vfp-hflt.tar.gz"
+
 else
 	javaInstaller="jdk-8u151-linux-x64.tar.gz"
 fi
 
+if [ -z ${jdk_tar} ] ; then
+  echo "Searching /media for -name ${javaInstaller}"
+	jdk_tar=$(find /media/ -name ${javaInstaller} | sort | tail -1)
+fi
 
 if [ -z ${jdk_tar} ] ; then
-	jdk_tar=$(find /media/ -name ${javaInstaller} | sort | tail -1)
+  echo "Searching ~/ for -name ${javaInstaller}"
+	jdk_tar=$(find ~/ -name ${javaInstaller} | sort | tail -1)
 fi
 
 if [ -z ${jdk_tar} ] ; then
@@ -27,17 +35,21 @@ if [ -z ${jdk_tar} ] ; then
 fi
 
 jdkName="jdk1.8.0_151"
-downloadDir="$curdir/Downloads"
+downloadDir=$(readlink -f "~/Downloads")
+mkdir -p ${downloadDir}
+
 installroot="/opt/java"
 echo ${jdk_tar}
 
-
-cp ${jdk_tar} ${downloadDir}
+if [ ! -f ${downloadDir}/${javaInstaller} ] ; then
+  cp ${jdk_tar} ${downloadDir}
+fi
 
 sudo mkdir -p "$installroot"
 pwd
 pushd $installroot
-sudo tar -zxvf "${downloadDir}/${javaInstaller}"  -C "${installroot}"
+
+sudo tar -zxvf ${downloadDir}/${javaInstaller}  -C "${installroot}"
 sudo chown root:root "$installroot/$jdkName"
 sudo rm -Rf $installroot/jdk1.8
 sudo ln -fs "$jdkName" "jdk1.8"

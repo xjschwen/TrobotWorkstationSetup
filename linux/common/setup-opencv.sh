@@ -137,16 +137,23 @@ fi
 
 cd $OPENCV_ROOT
 export ANT_HOME="/usr/share/ant"
-export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt"
+export JAVA_HOME="/opt/java/jdk1.8"
+#export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
+export PATH=$JAVA_HOME:$JAVA_HOME/bin:$ANT_HOME:$ANT_HOME/bin:$PATH
+
+
+
+
+
+cd $OPENCV_ROOT
+export ANT_HOME="/usr/share/ant"
+export JAVA_HOME="/opt/java/jdk1.8"
 #export JAVA_HOME=${JAVA_HOME:-/opt/java/jdk1.8}
 export PATH=$JAVA_HOME:$JAVA_HOME/bin:$ANT_HOME:$ANT_HOME/bin:$PATH
 
 
 $ANT_HOME/bin/ant -version
 $JAVA_HOME/bin/java -version
-echo JEff says stop here.
-exit 1
-
 
 
 mkdir -p $OPENCV_ROOT/build
