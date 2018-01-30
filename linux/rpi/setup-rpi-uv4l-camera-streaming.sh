@@ -1,3 +1,12 @@
+set -o errtrace
+trap 'printerr' ERR
+function printerr(){
+ local lc="$BASH_COMMAND" rc=$? ln=${BASH_LINENO[$i]}
+ echo "$(date +%s) : Command [ $lc ] exited with code [ $rc ] in line [ $ln ]"
+ exit $rc
+}
+
+
 # Jas copied from this URL on Spet 1, 2017
 
 #http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/
@@ -20,16 +29,16 @@ apt_sources='/etc/apt/sources.list'
 curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-key add -
 
 # remove any uv4l repos that already exist
-cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources}
+cat ${apt_sources} | grep -v "http://www.linux-projects.org/listing/uv4l_repo/raspbian/" > ${tmp_sources} || true
 
-jessie=$(cat /etc/apt/sources.list | grep -c jessie)
-wheezy=$(cat /etc/apt/sources.list | grep -c wheezy)
-stretch$(cat /etc/apt/sources.list | grep -c stretch)
+jessie="$(cat /etc/apt/sources.list  | grep -c jessie || true)"
+wheezy="$(cat /etc/apt/sources.list  | grep -c wheezy || true)"
+stretch="$(cat /etc/apt/sources.list | grep -c stretch || true)"
 
 if [ ${jessie} > 0  ] ; then
- newline="http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main"
+ newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main"
 elif [ ${wheezy} > 0  ] ; then
- newline="http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main"
+ newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main"
 elif [ ${stretch} ] ; then
   newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main"
 else
