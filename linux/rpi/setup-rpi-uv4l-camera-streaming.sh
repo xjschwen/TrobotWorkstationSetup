@@ -53,8 +53,6 @@ sudo apt-get upgrade
 sudo raspi-config nonint do_camera 1
 sudo raspi-config nonint do_i2c 1
 
-sudo cp uv4l-raspi-com.conf /etc/uv4l/uv4l-raspicam.conf
-
 sudo apt-get install -f -y uv4l
 sudo apt-get install -f -y uv4l-raspicam
 sudo apt-get install -f -y uv4l-raspicam-extras
@@ -75,6 +73,6 @@ sudo service uv4l_raspicam restart
 
 sudo systemctl enable uv4l_raspicam.service
 
-rm -f /etc/uv4l/uv4l-raspicam.conf
-sudo cp ./uv4l-raspi-com.conf /etc/uv4l/uv4l-raspicam.conf
+sudo rm -f /etc/uv4l/uv4l-raspicam.conf
+sudo cp ./uv4l-raspicam.conf /etc/uv4l/uv4l-raspicam.conf
 sudo service uv4l_raspicam restart
