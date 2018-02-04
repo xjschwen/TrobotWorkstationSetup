@@ -60,11 +60,13 @@ sudo apt-get install -f -y uv4l-raspicam-extras
 #sudo apt-get install -f -y uv4l-tc358743-extras
 sudo apt-get install -f -y v4l-utils
 sudo apt-get install -f -y uv4l-server
-#sudo apt-get install -f -y uv4l-uvc   # usb style camera
-#sudo apt-get install -f -y uv4l-xscreen
-#sudo apt-get install -f -y uv4l-mjpegstream
-#sudo apt-get install -f -y uv4l-dummy      # dummy ?
-#sudo apt-get install -f -y uv4l-raspidisp  # HDMI style camera
+sudo apt-get remove  -y uv4l-uvc   # usb style camera
+sudo apt-get remove  -y uv4l-xscreen
+sudo apt-get remove  -y uv4l-mjpegstream
+sudo apt-get remove  -y uv4l-dummy      # dummy ?
+sudo apt-get remove  -y uv4l-raspidisp  # HDMI style camera
+
+sudo apt-get autoremove -y
 
 sudo service uv4l_raspicam restart
 
