@@ -46,6 +46,7 @@ sudo rm -Rf ${apt_sources}
 
 #put our modified sources.list back in place
 sudo mv ${tmp_sources} ${apt_sources}
+sudo chown root:root ${apt_sources}
 
 sudo apt-get update
 sudo apt-get upgrade
