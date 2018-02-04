@@ -78,7 +78,9 @@ sudo service uv4l_raspicam restart
 sudo cp ./start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
 sudo chmod 755 /usr/local/bin/start-uv4l-video-stream.sh
 
-sudo systemctl enable uv4l.service
+sudo systemctl enable uv4l_raspicam.service
+
+cat /proc/device-tree/model
 
 echo "Rebooting in 10 seconds"
 sleep 10
