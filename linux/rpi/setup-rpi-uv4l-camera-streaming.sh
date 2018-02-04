@@ -8,18 +8,9 @@ function printerr(){
 
 
 # Jas copied from this URL on Spet 1, 2017
-
-#http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/
-
-#Updated for use with the pi3 and stretch
-#http://www.linux-projects.org/uv4l/installation/
+#https://www.linux-projects.org/uv4l/installation/
 
 #Add the following line to the file /etc/apt/sources.list :
-
-# sudo nano /etc/apt/sources.list
-
-# deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main
-# deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main
 
 tmp_sources='/tmp/sources.list'
 apt_sources='/etc/apt/sources.list'
@@ -36,14 +27,14 @@ wheezy="$(cat /etc/apt/sources.list  | grep -c wheezy || true)"
 stretch="$(cat /etc/apt/sources.list | grep -c stretch || true)"
 
 if [ ${jessie} > 0  ] ; then
- newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main"
+   newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main"
 elif [ ${wheezy} > 0  ] ; then
- newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main"
+   newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ wheezy main"
 elif [ ${stretch} ] ; then
-  newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main"
+   newline="deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main"
 else
-  echo "Unsupported PI operating system."
-  exit 1
+   echo "Unsupported PI operating system."
+   exit 1
 fi
 
 
@@ -62,24 +53,28 @@ sudo apt-get upgrade
 sudo raspi-config nonint do_camera 1
 sudo raspi-config nonint do_i2c 1
 
-sudo apt-get install -f -y uv4l uv4l-raspicam
+sudo cp uv4l-raspi-com.conf /etc/uv4l/uv4l-raspicam.conf
+
+sudo apt-get install -f -y uv4l
+sudo apt-get install -f -y uv4l-raspicam
 sudo apt-get install -f -y uv4l-raspicam-extras
-sudo apt-get install -f -y uv4l-tc358743-extras
+#sudo apt-get install -f -y uv4l-tc358743-extras
 sudo apt-get install -f -y v4l-utils
+sudo apt-get install -f -y uv4l-server
+#sudo apt-get install -f -y uv4l-uvc   # usb style camera
+#sudo apt-get install -f -y uv4l-xscreen
+#sudo apt-get install -f -y uv4l-mjpegstream
+#sudo apt-get install -f -y uv4l-dummy      # dummy ?
+#sudo apt-get install -f -y uv4l-raspidisp  # HDMI style camera
 
 sudo service uv4l_raspicam restart
 
+#sudo cp ./start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
 
-#sudo apt-get install uv4l-server
-#sudo apt-get install uv4l-uvc
-#sudo apt-get install uv4l-xscreen
-#sudo apt-get install uv4l-mjpegstream
+#sudo chmod 755 /usr/local/bin/start-uv4l-video-stream.sh
 
-sudo cp ./start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
-sudo chmod 755 /usr/local/bin/start-uv4l-video-stream.sh
+sudo systemctl enable uv4l_raspicam.service
 
-sudo systemctl enable uv4l.service
-
-echo "Rebooting in 10 seconds"
-sleep 10
-sudo reboot
+rm -f /etc/uv4l/uv4l-raspicam.conf
+sudo cp ./uv4l-raspi-com.conf /etc/uv4l/uv4l-raspicam.conf
+sudo service uv4l_raspicam restart
