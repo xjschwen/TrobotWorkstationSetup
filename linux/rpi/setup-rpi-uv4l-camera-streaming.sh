@@ -62,10 +62,10 @@ sudo apt-get upgrade
 sudo raspi-config nonint do_camera 1
 sudo raspi-config nonint do_i2c 1
 
-sudo apt-get install uv4l uv4l-raspicam
-sudo apt-get install uv4l-raspicam-extras
-sudo apt-get install uv4l-tc358743-extras
-sudo apt-get install v4l-utils
+sudo apt-get install -f -y uv4l uv4l-raspicam
+sudo apt-get install -f -y uv4l-raspicam-extras
+sudo apt-get install -f -y uv4l-tc358743-extras
+sudo apt-get install -f -y v4l-utils
 
 sudo service uv4l_raspicam restart
 
@@ -75,7 +75,7 @@ sudo service uv4l_raspicam restart
 #sudo apt-get install uv4l-xscreen
 #sudo apt-get install uv4l-mjpegstream
 
-sudo cp start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
+sudo cp ./start-uv4l-video-stream.sh /usr/local/bin/start-uv4l-video-stream.sh
 sudo chmod 755 /usr/local/bin/start-uv4l-video-stream.sh
 
 sudo systemctl enable uv4l.service
